@@ -8,15 +8,20 @@ import 'package:flutter_firebase/services/models.dart';
 class FireStoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Future<List<Topic>> getTopics() async {
-    try {
+    // try {
+    //   var ref = _db.collection('topics');
+    //   var snapshot = await ref.get();
+    //   var data = snapshot.docs.map((s) => s.data());
+    //   var topics = data.map((d) => Topic.fromJson(d)).toList();
+    //   return topics;
+    // } catch (e) {
+    //   rethrow;
+    // }
       var ref = _db.collection('topics');
       var snapshot = await ref.get();
       var data = snapshot.docs.map((s) => s.data());
       var topics = data.map((d) => Topic.fromJson(d)).toList();
       return topics;
-    } catch (e) {
-      rethrow;
-    }
   }
 
   Future<Quiz> getQuizzes(String quizId) async {

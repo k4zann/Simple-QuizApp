@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/routes.dart';
+import 'package:flutter_firebase/services/firestore.dart';
+import 'package:flutter_firebase/services/models.dart';
 import 'package:flutter_firebase/themes.dart';
+import 'package:provider/provider.dart';
 import 'home/home.dart';
 
 void main() async{
@@ -50,11 +53,15 @@ class _AppState extends State<App> {
         }
 
         if(snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: HomePage(),
-            routes: appRoutes,
-            theme: appTheme,
+          return StreamProvider(
+            create: (_) => FireStoreService().streamReport(),
+            initialData: Report(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: HomePage(),
+              routes: appRoutes,
+              theme: appTheme,
+            ),
           );
         }
 
