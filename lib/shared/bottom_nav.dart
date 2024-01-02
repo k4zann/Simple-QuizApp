@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavBar extends StatelessWidget{
   const BottomNavBar({super.key});
-
   Widget build(context) {
     return BottomNavigationBar(
       items: const [
@@ -35,10 +34,10 @@ class BottomNavBar extends StatelessWidget{
       onTap: (int index) {
         switch(index) {
           case 0:
-            Navigator.pushNamed(context, '/topics');
+            Navigator.pushReplacementNamed(context, '/topics');
             break;
           case 1:
-            Navigator.pushNamed(context, '/about');
+            Navigator.pushReplacementNamed(context, '/about');
             break;
           case 2:
             Navigator.pushNamed(context, '/profile');

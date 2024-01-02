@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../quiz/quiz.dart';
 import '../services/models.dart';
 
 class TopicDrawer extends StatelessWidget {
@@ -21,7 +22,7 @@ class TopicDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 10, left: 10,),
+                padding: const EdgeInsets.only(top: 10, left: 10,),
                 child: Text(
                   topic.title,
                   style: const TextStyle(
@@ -61,20 +62,18 @@ class QuizList extends StatelessWidget {
           );
         }
         return Card(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),
           elevation: 4,
           margin: const EdgeInsets.all(4),
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                '/quiz',
-                arguments: {
-                  'topic': topic,
-                  'quiz': quiz,
-                }
+                MaterialPageRoute(
+                  builder: (context) => QuizPage(quizId: quiz.id,)
+                )
               );
             },
             child: Container(
@@ -89,7 +88,7 @@ class QuizList extends StatelessWidget {
                   overflow: TextOverflow.fade,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
-                // leading: QuizBadge(topic: topic, quizId: quiz.id)
+                leading: QuizBadge(topic: topic, quizId: quiz.id)
               ),
             ),
           ),
@@ -109,8 +108,8 @@ class QuizBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    List completed = report.topics[topic.id];
-    if (completed != null && completed.contains(quizId)) {
+    List completed = report.topics[topic.id] ?? [];
+    if (completed.contains(quizId)) {
       return const Icon(
         FontAwesomeIcons.checkDouble,
         color: Colors.green,

@@ -18,6 +18,7 @@ class ProfilePage extends StatelessWidget {
           backgroundColor: Colors.deepOrange,
           title: Text(user.displayName ?? 'Guest'),
         ),
+        bottomNavigationBar: const BottomNavBar(),
         body: Center (
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,7 +51,7 @@ class ProfilePage extends StatelessWidget {
               ),
               const Spacer(),
               ElevatedButton(
-                child: Text('logout'),
+                child: const Text('logout'),
                 onPressed: () async {
                   await AuthService().signOut();
                   Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);

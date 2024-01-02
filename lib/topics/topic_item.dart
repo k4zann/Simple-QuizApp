@@ -97,6 +97,7 @@ class TopicScreen extends StatelessWidget{
                 fontSize: 16,
               ),
             ),
+            QuizList(topic: topic),
           ],
         ),
       ),
