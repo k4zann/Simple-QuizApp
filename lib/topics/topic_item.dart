@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase/topics/drawer.dart';
 
 import '../services/models.dart';
+import '../shared/progress_bar.dart';
 
 class TopicItem extends StatelessWidget {
   final Topic topic;
@@ -53,6 +54,9 @@ class TopicItem extends StatelessWidget {
                   ),
                 ),
               ),
+              Flexible(
+                child: TopicProgress(topic: topic),
+              )
             ],
           ),
         ),
@@ -64,7 +68,7 @@ class TopicItem extends StatelessWidget {
 class TopicScreen extends StatelessWidget{
   final Topic topic;
   final List<Topic> topics;
-  TopicScreen({super.key, required this.topic, required this.topics});
+  const TopicScreen({super.key, required this.topic, required this.topics});
 
   @override
   Widget build(context) {
@@ -73,7 +77,7 @@ class TopicScreen extends StatelessWidget{
         title: Text(topic.title),
         backgroundColor: Colors.transparent,
       ),
-      drawer: AppDrawer(topics: topics),
+      drawer: TopicDrawer(topics: topics),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -87,13 +91,10 @@ class TopicScreen extends StatelessWidget{
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                topic.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
+            Text(
+              topic.description,
+              style: const TextStyle(
+                fontSize: 16,
               ),
             ),
           ],
@@ -103,4 +104,4 @@ class TopicScreen extends StatelessWidget{
   }
 }
 
-//TODO need to understand why does the drawer now work
+//TODO need to understand why does the drawer is not working properly

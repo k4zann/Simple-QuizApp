@@ -1,47 +1,50 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../services/models.dart';
 
-class AppDrawer extends StatelessWidget {
+class TopicDrawer extends StatelessWidget {
   final List<Topic> topics;
-  const AppDrawer({Key? key, required this.topics}) : super(key: key);
-
-  Widget build(context) {
+  const TopicDrawer({Key? key, required this.topics}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: topics.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context, int index) {
           Topic topic = topics[index];
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
+                padding: EdgeInsets.only(top: 10, left: 10,),
                 child: Text(
                   topic.title,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white70
+                    color: Colors.white70,
                   ),
-                ),
+                )
               ),
-              QuizList(topic: topic)
+              QuizList(topic: topic),
             ],
           );
         },
-        separatorBuilder: (context, index) {
+        separatorBuilder: (BuildContext context, int index) {
           return const Divider(
             color: Colors.white70,
           );
-        }
-      ),
+        },
+      )
     );
   }
 }
+
 
 class QuizList extends StatelessWidget {
   final Topic topic;
@@ -52,6 +55,11 @@ class QuizList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: topic.quizzes.map((quiz) {
+        if (topic.quizzes.isEmpty) {
+          return const Center(
+            child: Text('No quizzes found.'),
+          );
+        }
         return Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
@@ -81,7 +89,7 @@ class QuizList extends StatelessWidget {
                   overflow: TextOverflow.fade,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
-                leading: QuizBadge(topic: topic, quizId: quiz.id)
+                // leading: QuizBadge(topic: topic, quizId: quiz.id)
               ),
             ),
           ),

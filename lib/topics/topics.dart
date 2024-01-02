@@ -4,6 +4,7 @@ import 'package:flutter_firebase/topics/topic_item.dart';
 
 import '../services/models.dart';
 import '../shared/bottom_nav.dart';
+import 'drawer.dart';
 
 
 class TopicPage extends StatelessWidget {
